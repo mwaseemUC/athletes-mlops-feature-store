@@ -1,0 +1,9 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+data/*.parquet
+feature_repo/data/
+feature_repo/.ipynb_checkpoints/
+mlruns/
+*.joblib
