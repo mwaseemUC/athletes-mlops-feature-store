@@ -97,7 +97,8 @@ def run(version: str, C: float):
         fig, ax = plt.subplots(figsize=(5, 4))
         ConfusionMatrixDisplay.from_estimator(pipe, X_te, y_te, ax=ax)
         ax.set_title(f"Confusion Matrix ({run_name})")
-        plot_path = f"cm_{run_name}.png"
+        os.makedirs("artifacts", exist_ok=True)
+        plot_path = os.path.join("artifacts", f"cm_{run_name}.png")
         fig.savefig(plot_path, bbox_inches="tight")
         plt.close(fig)
         mlflow.log_artifact(plot_path)

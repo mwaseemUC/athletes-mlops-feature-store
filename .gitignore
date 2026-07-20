@@ -7,3 +7,5 @@ feature_repo/data/
 feature_repo/.ipynb_checkpoints/
 mlruns/
 *.joblib
+cm_*.png
+artifacts/
