@@ -2,6 +2,10 @@
 
 **ADSP 31021 Machine Learning Operations, Assignment #2 (Feature Store)**
 
+**GitHub repository:** https://github.com/mwaseemUC/athletes-mlops-feature-store
+
+**Author:** Mohammed Waseem (mwaseem@uchicago.edu)
+
 An end-to-end, reproducible ML workflow on the CrossFit Open `athletes.csv`
 dataset. Features are defined and served through a **Feast** feature store with
 two versioned feature definitions. A single algorithm (**LogisticRegression**)
@@ -34,7 +38,7 @@ athletes-mlops-feature-store/
 ├── README.md
 ├── requirements.txt
 ├── environment.yml
-├── run.sh                    # runs the full pipeline (shell path)
+├── run.py                    # runs the full pipeline (cross-platform)
 ├── run_pipeline.ipynb        # runs the full pipeline (Colab / Jupyter path)
 ├── .gitignore
 ├── .env                      # (git-ignored) Databricks credentials
@@ -54,7 +58,8 @@ athletes-mlops-feature-store/
 │   ├── run_experiments.py    # runs all four experiment combinations
 │   └── evaluate.py           # pulls runs from MLflow, builds comparison outputs
 └── reports/
-    ├── experiment_summary.csv
+    ├── experiment_comparison.md   # standalone experiment comparison summary
+    ├── experiment_summary.csv     # metrics table (pulled from MLflow runs)
     ├── metric_comparison.png
     └── roc_auc_comparison.png
 ```
@@ -165,7 +170,10 @@ Four experiments: **2 feature versions × 2 hyperparameter configurations**
 | v2_C0.1 | v2 | 0.1 | 0.837 | 0.806 | 0.888 | 0.845 | **0.919** |
 | v2_C10.0 | v2 | 10.0 | 0.836 | 0.807 | 0.884 | 0.844 | 0.918 |
 
-See `reports/metric_comparison.png` and `reports/roc_auc_comparison.png`.
+A standalone writeup of this comparison, with the full findings and evidence
+screenshots, is in **`reports/experiment_comparison.md`**. The metrics table is
+also saved as `reports/experiment_summary.csv`, and the charts as
+`reports/metric_comparison.png` and `reports/roc_auc_comparison.png`.
 
 ### Findings
 
@@ -221,16 +229,17 @@ path) or enter it when prompted (notebook path).
 There are two ways to run the full pipeline. Both execute the same `src/`
 scripts and produce identical results.
 
-#### Option A: shell script (local / any terminal)
+#### Option A: script runner (local, any OS)
 
-Best for a local run with the conda env active and a `.env` file in place.
+Best for a local run with the environment active and a `.env` file in place.
+The Python runner works on any OS (Windows, macOS, Linux) with no bash required,
+and stops immediately if any stage fails:
 
 ```bash
-bash run.sh
+python run.py
 ```
 
-`run.sh` runs all six stages in order and stops immediately if any stage fails.
-Equivalent to running the stages by hand:
+`run.py` runs all six stages in order. To run them by hand instead:
 
 ```bash
 python src/clean.py            # 1. clean raw data -> processed parquet
@@ -265,6 +274,6 @@ parameters.
 - [x] Feature store integration (Feast) with two versioned feature definitions
 - [x] Four experiments (2 feature versions × 2 hyperparameters, one algorithm)
 - [x] Experiment tracking on MLflow / Databricks (params, metrics, artifacts, model)
-- [x] Experiment comparison summary (`reports/experiment_summary.csv`)
+- [x] Experiment comparison summary (`reports/experiment_comparison.md`)
 - [x] Model evaluation metrics and visualizations (`reports/*.png`)
 - [x] Dependency management (`requirements.txt`, `environment.yml`)
