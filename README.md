@@ -277,3 +277,5 @@ parameters.
 - [x] Experiment comparison summary (`reports/experiment_comparison.md`)
 - [x] Model evaluation metrics and visualizations (`reports/*.png`)
 - [x] Dependency management (`requirements.txt`, `environment.yml`)
+
+***NOTE**: Claude Sonnet 5 was used to assist in this assignment*
